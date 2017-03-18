@@ -1,0 +1,8 @@
+#en, #de {display:none; height: 100%;}
+#rus	 {display:block; height: 100%;}
+
+/*@media only screen and (max-device-width: 480px){}
+    .m_navigation{
+        background: none repeat scroll 0 0 #000
+    }
+}*/

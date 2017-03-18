@@ -1,0 +1,132 @@
+
+
+/* FlexSlider Default Theme
+*********************************/
+.flexslider{margin: 0 0 0px; position: relative; }
+.flexslider,
+.slides,
+.slides li,
+.flex-viewport{
+	height: 100% !important;
+}
+.flexslider img{
+	max-width: 100%;
+	//max-height:100%;
+	height: auto !important;
+	vertical-align: middle;
+	display: inline-block;
+
+}
+.slides>li.fullheight img{
+	height: 100% !important;
+	max-width: auto;
+}
+.slides>li.extra_item img{
+	width: auto !important;
+	/* max-height: 100% !important; */
+}
+.slides>li.na{
+	vertical-align: middle;
+	/*position: absolute;
+	left:0px;
+	top:0px;*/
+}
+.child {
+    display:inline-block;
+    vertical-align:middle;
+}
+.slides>li.na:after{
+    display:inline-block;
+    vertical-align:middle;
+    height:100%;
+    width:0px;
+	content:"";
+}
+.slides>li.active{
+	opacity: 1;
+}
+/*
+.slides>li:after{
+	display: inline-block;
+	vertical-align:middle;
+    height:100%;
+    width: 0;
+	content: "";
+}
+.slides>li:before{
+	background: rgba(255,255,255,0.8);
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 99;
+	opacity: 1;
+	content: "";
+}
+.slides li.flex-active-slide:before,
+.slides li.hoverlay:before{
+	opacity: 0;
+}
+*/
+.slides li:before{
+	display: block;
+	position: absolute;
+	right:0;
+	width:1px;
+	height:100%;
+	z-index:10;
+	/*background:rgba(255,255,255,0.4);*/
+	content:"";
+}
+.slides .slideshow_banner{
+	position: absolute;
+	text-align: left;
+	width: 512px;
+	height: 100%;
+	background: rgb(215,232,225);
+	/*z-index: 999;*/
+}
+.slideshow_banner_inner{
+	padding: 60px 20px 0 40px;
+	width: 452px;
+}
+.w512{
+	width: 512px;
+}
+/*
+.show-banner .slideshow_banner{
+    opacity: 1;
+    left: 0;
+}*/
+
+.flex-viewport{}
+.loading .flex-viewport {max-height: 300px;}
+.flexslider .slides {zoom: 1;background-color: #DAE9E4;}
+
+/* Direction Nav */
+.flex-direction-nav a{
+	width: 50%;
+	height: 100%;
+	margin: 0px 0 0;
+	display: block;
+	position: absolute;
+	top: 0;
+}
+
+.flex-direction-nav .flex-next {right: 0px;cursor:url("../images/next_arrow.png"), default;}
+.flex-direction-nav .flex-prev {left: 0px;cursor:url("../images/prev_arrow.png"), default;}
+
+/* Control Nav */
+.flex-control-nav {width: 100%; position: absolute; bottom: 0px; text-align: center;}
+.flex-control-nav li {margin: 0 6px; display: inline-block; zoom: 1; *display: inline;}
+.flex-control-paging li a {width: 11px; height: 11px; display: block; background: url('') repeat;cursor: pointer; text-indent: -9999px;}
+.flex-control-paging li a:hover, .flex-control-paging li a.flex-active{ background-position:0 0;}
+
+.flex-control-thumbs {margin: 5px 0 0; position: static; overflow: hidden;}
+.flex-control-thumbs li {width: 25%; float: left; margin: 0;}
+.flex-control-thumbs img {width: 100%; display: block; cursor: pointer;}
+.flex-control-thumbs img:hover {opacity: 1;}
+.flex-control-thumbs .active {opacity: 1; cursor: default;}
+}
