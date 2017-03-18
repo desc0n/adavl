@@ -171,4 +171,9 @@ class Model_Content extends Kohana_Model
             ->as_array('name', 'value')
         ;
     }
+
+    public function getMainPageContent()
+    {
+        return View::factory('main_page');
+    }
 }

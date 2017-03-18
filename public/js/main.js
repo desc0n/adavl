@@ -542,18 +542,7 @@ $(window).load(function() {
 	
 	loadMainPage();
 	
-	/*$("a#main-logo-id").click(function(e){
-		e.preventDefault();
-		path = '/?ajax=Y';
-		$.get(path, {}, function(data){
-					$("div#content_inner").html(data);
-					$(".m_navigation").removeClass("in");
-					$("div#content_inner").scrollTop(0);
-					projectListClick();					
-		})
-		return false;
-	});*/
-	
+
 	$("a#nbgallery").click(function(){
 		path = $(this).attr("href");
 		$.get(path, {}, function(data){
@@ -561,9 +550,9 @@ $(window).load(function() {
 					$(".m_navigation").removeClass("in");
 					$("div#content_inner").scrollTop(0);
 					projectListClick();					
-		})
+		});
 		return false;
-	})
+	});
 
 	$(".menu_item a, .open_nav_btns a").click(function(){
 		var nameOfPage = $(this).attr("data-page");
@@ -571,21 +560,13 @@ $(window).load(function() {
 			$("body").attr("id",nameOfPage);
 		}
 	});
-	
-	//$(".slideshow_banner").css("width","512px");
-
-	
-	/*��������� ������� ��������*/
-	
 });
 
 function loadMainPage()
 {
-	path = document.location.pathname+'?ajax=Y';
-        
-	$.get(path, {}, function(data)
+	$.get('/ajax/get_main_page_content', {}, function(data)
 	{		
-		// $("div#content_inner").html(data);
+		 $("div#content_inner").html(data);
 		$(".m_navigation").removeClass("in");
 		$("body").removeClass("openNav");
 

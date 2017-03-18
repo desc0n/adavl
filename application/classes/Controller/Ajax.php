@@ -2,75 +2,17 @@
 
 class Controller_Ajax extends Controller
 {
-	public function action_add_to_cart()
-	{
-        /**
-         * @var $adminModel Model_Admin
-         */
-        $adminModel = Model::factory('Admin');
+    /** @var Model_Content */
+    private $contentModel;
 
-        $adminModel->addToCart($_POST);
-		$this->response->body('ok');
-	}
+    public function __construct(Request $request, Response $response)
+    {
+        parent::__construct($request, $response);
+        $this->contentModel = Model::factory('Content');
+    }
 
-    public function action_plus_cart_num()
-	{
-        /**
-         * @var $adminModel Model_Admin
-         */
-        $adminModel = Model::factory('Admin');
-
-		$this->response->body($adminModel->plusCartNum($_POST));
-	}
-
-    public function action_minus_cart_num()
-	{
-        /**
-         * @var $adminModel Model_Admin
-         */
-        $adminModel = Model::factory('Admin');
-
-		$this->response->body($adminModel->minusCartNum($_POST));
-	}
-
-    public function action_remove_from_cart()
-	{
-        /**
-         * @var $adminModel Model_Admin
-         */
-        $adminModel = Model::factory('Admin');
-
-		$this->response->body($adminModel->removeFromCart($_POST));
-	}
-
-    public function action_remove_all_cart()
-	{
-        /**
-         * @var $adminModel Model_Admin
-         */
-        $adminModel = Model::factory('Admin');
-
-		$this->response->body($adminModel->removeAllCart($_POST));
-	}
-
-    public function action_get_cart_num()
-	{
-        /**
-         * @var $adminModel Model_Admin
-         */
-        $adminModel = Model::factory('Admin');
-
-		$this->response->body($adminModel->getCartNum());
-	}
-
-    public function action_add_review()
-	{
-        /**
-         * @var $adminModel Model_Admin
-         */
-        $adminModel = Model::factory('Admin');
-
-		$this->response->body($adminModel->addReview($_POST));
-	}
-
+    public function action_get_main_page_content()
+    {
+        $this->response->body($this->contentModel->getMainPageContent());
+    }
 }
