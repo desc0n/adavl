@@ -6,10 +6,7 @@
     <meta name = "format-detection" content = "telephone=no" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta charset="utf-8" />
-
-
-    <link rel="icon" href="/public/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/public/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/public/images/logo.png" sizes="38x38" type="image/png">
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/responsive.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/others.css" />
