@@ -12,11 +12,6 @@ class Controller_Index extends Controller
 
 		$template = $contentModel->getBaseTemplate();
         
-		$template->content = View::factory('page')
-            ->set('pageData', $contentModel->findPageBySlug('main'))
-            ->set('get', $this->request->query())
-        ;
-
 		$this->response->body($template);
 	}
 
