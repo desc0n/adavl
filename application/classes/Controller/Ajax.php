@@ -15,4 +15,9 @@ class Controller_Ajax extends Controller
     {
         $this->response->body($this->contentModel->getMainPageContent());
     }
+
+    public function action_get_project_page_content()
+    {
+        $this->response->body($this->contentModel->getProjectPageContent($this->request->query('id')));
+    }
 }

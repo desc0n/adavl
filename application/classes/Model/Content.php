@@ -176,4 +176,9 @@ class Model_Content extends Kohana_Model
     {
         return View::factory('main_page');
     }
+
+    public function getProjectPageContent($id)
+    {
+        return View::factory('project');
+    }
 }
