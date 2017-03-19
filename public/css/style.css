@@ -194,7 +194,7 @@ header {}
 header h1{}
 .logo a {
   display:block;
-  width:132px;
+  width:142px;
   height:142px;
   background:url(../images/logo.png) 0 0 no-repeat;
   text-decoration:none;
@@ -235,7 +235,7 @@ header h1{}
 .menu_item a{
   font-size: 12px;
   line-height: 16px;
-  color: #000;
+  color: #F39513;
   display: inline-block;
   overflow: hidden;
   height: 16px;
@@ -249,16 +249,11 @@ header h1{}
 
 
 .menu_item.current a{
-  -webkit-transform: translateX(10px);
-  -moz-transform: translateX(10px);
-  transform: translateX(10px);
+
 }
 .menu_item a:hover,
 .menu_item.current a{
-  color: #b7b7b7;
-}
-.menu_item.current a{
-  font-size: 14px;
+  color: #000;
 }
 
 .m_navigation{
@@ -284,11 +279,11 @@ header h1{}
   width: 170px;
   max-width: 30%;
   position: absolute;
-  left: 200px;
+  left: -200px;
   top: 0;
   bottom: 0;
   padding-bottom: 80px;
-  z-index: 11;
+  z-index: 9;
   text-transform: uppercase;
   text-align: center;
 }
@@ -326,7 +321,7 @@ header h1{}
 
 .nav_bottom{
   bottom: 14px;
-  left: 68px;
+  left: 38px;
   z-index: 11;
 }
 
@@ -525,7 +520,7 @@ header h1{}
   border-bottom: 1px solid #e6e6e6;
 }
 #content{
-  margin:0px 0 0px 341px;
+  margin:0px 0 0px 200px;
   width:auto;
   overflow: hidden;
   min-height: 1px; /*min-height: 1500px;*/
@@ -589,7 +584,7 @@ header h1{}
 .content_item{
   height: 100%;
   overflow: hidden;
-  /*width: 512px;*/
+  width: 612px;
   white-space: normal;
   position: relative !important;
 }
@@ -1317,7 +1312,6 @@ footer .social a:hover img{
   -ms-filter: grayscale(100%);
   -o-filter: grayscale(100%);
   filter: grayscale(100%);
-  filter: url(filters.svg#grayscale);
 
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
