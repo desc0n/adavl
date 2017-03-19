@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -15,8 +14,6 @@
     <script src="/public/js/jquery.popupWindow.js"></script>
     <script src="/public/js/jquery.tinycarousel.js"></script>
     <script src="/public/js/jquery.thumbnailScroller.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script src="/public/bitrix/templates/adm/components/bitrix/map.google.view/g_map/script.js"></script>
     <script src="/public/js/jquery.hflex.js"></script>
     <script src="/public/js/jquery.mousewheel.js"></script>
     <script src="/public/js/jquery.touchwipe.js"></script>
@@ -27,7 +24,6 @@
     <script src="/public/js/jquery.cycle2.swipe.js"></script>
     <script src="/public/js/jquery.preloader.js"></script>
     <script src="/public/js/main.js"></script>
-
     <script src="/public/js/extra.js"></script>
  </head>
 <body id="home_page">
@@ -54,10 +50,10 @@
                 <div class="f_left logo"><a id="main-logo-id" href="/">ADAVL</a></div>
             </div>
             <ul class="reg menu" id="menu">
-                <li class="menu_item"><a href="#">Портфолио</a></li>
+                <li class="menu_item portfolio-menu-item"><a href="#" data-page="main">Портфолио</a></li>
                 <li class="menu_item"><a href="#">Услуги</a></li>
                 <li class="menu_item"><a href="#">Наша деятельность</a></li>
-                <li class="menu_item"><a href="#">Контакты</a></li>
+                <li class="menu_item"><a href="#" data-page="contacts">Контакты</a></li>
             </ul>
         </div>
     </nav>
