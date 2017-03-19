@@ -172,9 +172,9 @@ class Model_Content extends Kohana_Model
         ;
     }
 
-    public function getMainPageContent()
+    public function getPageContent($page)
     {
-        return View::factory('main_page');
+        return View::factory($page);
     }
 
     public function getProjectPageContent($id)

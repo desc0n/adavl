@@ -11,9 +11,9 @@ class Controller_Ajax extends Controller
         $this->contentModel = Model::factory('Content');
     }
 
-    public function action_get_main_page_content()
+    public function action_get_page_content()
     {
-        $this->response->body($this->contentModel->getMainPageContent());
+        $this->response->body($this->contentModel->getPageContent($this->request->query('page')));
     }
 
     public function action_get_project_page_content()
