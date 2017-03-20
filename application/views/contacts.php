@@ -41,7 +41,7 @@
         </div>
         <div class="p_abs content_img">
             <div class="map_wrapper">
-                <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A09be7e7ddd6410e14576d7374d5b742b4104b0138377ecc28bf6836132ba8526&width=550&height=300&lang=ru_RU&scroll=true"></script>
+                <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A09be7e7ddd6410e14576d7374d5b742b4104b0138377ecc28bf6836132ba8526&width=550&height=400&lang=ru_RU&scroll=true"></script>
             </div>
         </div>
     </article>
