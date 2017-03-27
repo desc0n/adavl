@@ -20,4 +20,24 @@ class Controller_Ajax extends Controller
     {
         $this->response->body($this->contentModel->getProjectPageContent($this->request->query('id')));
     }
+
+    public function action_remove_portfolio_item_img()
+    {
+        /** @var $portfolioModel Model_Portfolio */
+        $portfolioModel = Model::factory('Portfolio');
+
+        $portfolioModel->removeImg((int)$this->request->post('id'));
+
+        $this->response->body(json_encode(['result' =>'success']));
+    }
+
+    public function action_remove_portfolio_item()
+    {
+        /** @var $portfolioModel Model_Portfolio */
+        $portfolioModel = Model::factory('Portfolio');
+
+        $portfolioModel->removeItem((int)$this->request->post('id'));
+
+        $this->response->body(json_encode(['result' =>'success']));
+    }
 }
