@@ -70,10 +70,10 @@
                 </ul>
             </div>
         </li>
-        <li><img src="/public/img/thumb/0d7a2c81010e0bd1aef16cf077a03136.jpg" alt=""></li>
-        <li><img data-original="/public/img/thumb/f5beb7584b5a5623b39fd9d2f4b35367.jpg" alt=""></li>
-        <li><img data-original="/public/img/thumb/3c61c6364c2d6be94ed764ec52664791.jpg" alt=""></li>
-        <li><img data-original="/public/img/thumb/f946c910852930860eae736c83cb6a67.jpg" alt=""></li>
-        <li><img data-original="/public/img/thumb/12b1986942104c77b4d03d683d0c4c61.jpg" alt=""></li>
+        <li><img src="/public/img/original/0d7a2c81010e0bd1aef16cf077a03136.jpg" alt=""></li>
+        <li><img data-original="/public/img/original/f5beb7584b5a5623b39fd9d2f4b35367.jpg" alt=""></li>
+        <li><img data-original="/public/img/original/3c61c6364c2d6be94ed764ec52664791.jpg" alt=""></li>
+        <li><img data-original="/public/img/original/f946c910852930860eae736c83cb6a67.jpg" alt=""></li>
+        <li><img data-original="/public/img/original/12b1986942104c77b4d03d683d0c4c61.jpg" alt=""></li>
     </ul>
 </div>
