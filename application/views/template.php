@@ -39,8 +39,8 @@
 <div class="global_wrap">
     <div class="open_nav_btns">
         <a href="#" id="show_menu">Меню</a>
-        <a href="/public/master/?ajax=Y" id="about_btn" data-page="about_page">Мастерская</a>
-        <a href="/public/gallery_structure/?ajax=Y" data-page="projects" id="nbgallery">Портфолио</a>
+        <a href="#" id="about_btn" data-page="contacts">Контакты</a>
+        <a href="#" data-page="main">Портфолио</a>
     </div>
 
     <nav class="m_navigation">
@@ -61,10 +61,9 @@
     <nav class="sub-menu">
         <div class="nav_inner">
             <ul class="flex-menu">
-                <li><a href="#">архитектура</a></li>
-                <li><a href="#">дизайн</a></li>
-                <li><a href="#">визуализация</a></li>
-                <li><a href="#">3d моделинг</a></li>
+                <?foreach ($portfolioCategories as $category) {?>
+                <li><a href="#"><?=$category;?></a></li>
+                <?}?>
             </ul>
         </div>
     </nav>

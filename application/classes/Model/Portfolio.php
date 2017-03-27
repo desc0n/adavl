@@ -185,6 +185,18 @@ class Model_Portfolio extends Kohana_Model
     }
 
     /**
+     * @param int $itemId
+     *
+     * @return string
+     */
+    public function findMainItemImg($itemId)
+    {
+        $itemImgs = $this->findImgsByItemId($itemId);
+
+        return isset($itemImgs[0]['src']) ? '/public/img/original/' . $itemImgs[0]['src'] : null;
+    }
+
+    /**
      * @param int $id
      */
     public function removeImg($id)

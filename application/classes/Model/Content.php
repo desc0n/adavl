@@ -7,97 +7,15 @@ class Model_Content extends Kohana_Model
 {
     public function getBaseTemplate()
     {
+        /** @var $portfolioModel Model_Portfolio */
+        $portfolioModel = Model::factory('Portfolio');
+
         return View::factory('template')
-            ->set('menu', $this->getMenu())
+            ->set('portfolioCategories', $portfolioModel->getCategories())
             ->set('contacts', $this->findAllContacts())
         ;
     }
     
-    /**
-     * @param null|int $parentId
-     * @param null|int $id
-     * 
-     * @return array
-     */
-    public function getMenu($parentId = null, $id = null)
-    {
-        if ($parentId !== null && $id === null) {
-            return DB::select(
-                    'm.*' , 
-                    ['p.title', 'name'],
-                    'p.slug'
-                )
-                ->from(['pages__menu', 'm'])
-                ->join(['pages__pages', 'p'])
-                ->on('p.id', '=', 'm.page_id')
-                ->where('m.parent_id', '=', $parentId)
-                ->and_where('m.status_id', '=', 1)
-                ->execute()
-                ->as_array()
-            ;
-        } elseif ($id !== null) {
-            return DB::select(
-                    'm.*' ,
-                    ['p.title', 'name'],
-                    'p.slug'
-                )
-                ->from(['pages__menu', 'm'])
-                ->join(['pages__pages', 'p'])
-                ->on('p.id', '=', 'm.page_id')
-                ->where('m.id', '=', $id)
-                ->execute()
-                ->as_array()
-            ;
-        } else {
-            return DB::select(
-                    'm.*' ,
-                    ['p.title', 'name'],
-                    'p.slug'
-                )
-                ->from(['pages__menu', 'm'])
-                ->join(['pages__pages', 'p'])
-                ->on('p.id', '=', 'm.page_id')
-                ->where('m.parent_id', 'IS', null)
-                ->and_where('m.status_id', '=', 1)
-                ->execute()
-                ->as_array()
-            ;
-        }
-    }
-
-    /**
-     * @param null|int $cid
-     * @param null|int $id
-     * 
-     * @return array
-     */
-    public function getCategory($cid = null, $id = null)
-    {
-        if ($cid !== null && $id === null) {
-            return DB::select()
-                ->from('category')
-                ->where('parent_id', '=', $cid)
-                ->execute()
-                ->as_array()
-            ;
-        } elseif ($id !== null) {
-            return DB::select()
-                ->from('category')
-                ->where('id', '=', $id)
-                ->limit(1)
-                ->execute()
-                ->current()
-            ;
-        } else {
-            return DB::select()
-                ->from('category')
-                ->where('parent_id', 'IS', NULL)
-                ->execute()
-                ->as_array()
-            ;
-        }
-    }
-
     /**
      * @return array
      */
@@ -174,7 +92,21 @@ class Model_Content extends Kohana_Model
 
     public function getPageContent($page)
     {
-        return View::factory($page);
+        /** @var $portfolioModel Model_Portfolio */
+        $portfolioModel = Model::factory('Portfolio');
+
+        $view = View::factory($page);
+
+        switch ($page) {
+            case 'main':
+                $view
+                    ->set('projectList', array_chunk($portfolioModel->findAll(0, 4), 2))
+                ;
+
+                break;
+        }
+
+        return $view;
     }
 
     public function getProjectPageContent($id)

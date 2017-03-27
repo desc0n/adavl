@@ -150,8 +150,8 @@ class Controller_Cpanel extends Controller
             ->set('get', $this->request->query())
         ;
 
-        if (isset($_POST['addPortfolioPortfolio'])) {
-            $id = $portfolioModel->setPortfolio(
+        if (isset($_POST['addPortfolioItem'])) {
+            $id = $portfolioModel->setItem(
                 null,
                 (int)$this->request->post('category_id'),
                 $this->request->post('title'),
