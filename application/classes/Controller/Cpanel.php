@@ -37,7 +37,7 @@ class Controller_Cpanel extends Controller
     {
         if (!Auth::instance()->logged_in() && isset($_POST['login'])) {
             Auth::instance()->login($this->request->post('username'), $this->request->post('password'),true);
-            HTTP::redirect('/cpanel');
+            HTTP::redirect('/cpanel/portfolio_items_list');
         }
 
         $template = View::factory('cpanel/login')
@@ -111,7 +111,7 @@ class Controller_Cpanel extends Controller
                         }
                     }
                 } else {
-                    HTTP::redirect('/cpanel');
+                    HTTP::redirect('/cpanel/portfolio_items_list');
                 }
             }
         }
