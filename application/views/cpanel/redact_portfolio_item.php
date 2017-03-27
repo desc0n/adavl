@@ -47,7 +47,7 @@
                 </div>
                 <div class="row form-group">
                     <div class="col-sm-6">
-                        <button type="submit" class="btn btn-block btn-success" name="addPortfolioItem">Сохранить</button>
+                        <button type="submit" class="btn btn-block btn-success" name="redactPortfolioItem">Сохранить</button>
                     </div>
                 </div>
             </form>

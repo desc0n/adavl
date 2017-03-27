@@ -21,6 +21,9 @@ $portfolio = Model::factory('Portfolio');
                     <td><?=$item['category_name'];?></td>
                     <td><?=$item['title'];?></td>
                     <td class="text-center">
+                        <a class="btn btn-success" href="/cpanel/redact_portfolio_item/<?=$item['id'];?>" target="_self">
+                            <span class="fa fa-pencil"></span>
+                        </a>
                         <button class="btn btn-danger" onclick="removePortfolioItem(<?=$item['id'];?>);">
                             <span class="fa fa-remove"></span>
                         </button>

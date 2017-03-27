@@ -60,9 +60,9 @@
 
     <nav class="sub-menu">
         <div class="nav_inner">
-            <ul class="flex-menu">
-                <?foreach ($portfolioCategories as $category) {?>
-                <li><a href="#"><?=$category;?></a></li>
+            <ul class="flex-menu" id="portfolioMenu">
+                <?foreach ($portfolioCategories as $id => $name) {?>
+                <li><a href="#" data-page="portfolio_category" data-param="<?=$id;?>"><?=$name;?></a></li>
                 <?}?>
             </ul>
         </div>

@@ -8,26 +8,22 @@ class Model_Portfolio extends Kohana_Model
     public $defaultLimit = 20;
 
     /**
-     * @param int $offset
+     * @param int $page
      * @param int $limit
      *
      * @return array
      */
-    public function findAll($offset, $limit)
+    public function findAll($page = 1, $limit = 20)
     {
-        $query = DB::select('pi.*', ['pc.name', 'category_name'])
+        return DB::select('pi.*', ['pc.name', 'category_name'])
             ->from(['portfolio__items', 'pi'])
             ->join(['portfolio__categories', 'pc'])
             ->on('pc.id', '=', 'pi.category_id')
+            ->offset((($page - 1) * $limit))
+            ->limit($limit)
+            ->execute()
+            ->as_array()
         ;
-
-        $query = !empty($limit) ? $query->limit($limit) : $query;
-        $query = !empty($offset) ? $query->offset($offset) : $query;
-
-        return $query
-                ->execute()
-                ->as_array()
-            ;
     }
 
     /**
@@ -101,6 +97,7 @@ class Model_Portfolio extends Kohana_Model
                 'title' => $title,
                 'description' => $description
             ])
+            ->where('id', '=', $id)
             ->execute()
         ;
 

@@ -13,7 +13,7 @@ class Controller_Ajax extends Controller
 
     public function action_get_page_content()
     {
-        $this->response->body($this->contentModel->getPageContent($this->request->query('page')));
+        $this->response->body($this->contentModel->getPageContent($this->request->query('page'), $this->request->query('param')));
     }
 
     public function action_get_project_page_content()

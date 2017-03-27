@@ -90,20 +90,33 @@ class Model_Content extends Kohana_Model
         ;
     }
 
-    public function getPageContent($page)
+    /**
+     * @param $page
+     * @param $param
+     *
+     * @return View
+     */
+    public function getPageContent($page, $param)
     {
         /** @var $portfolioModel Model_Portfolio */
         $portfolioModel = Model::factory('Portfolio');
 
-        $view = View::factory($page);
-
         switch ($page) {
             case 'main':
-                $view
-                    ->set('projectList', array_chunk($portfolioModel->findAll(0, 4), 2))
+                $view = View::factory('main')
+                    ->set('projectList', array_chunk($portfolioModel->findAll(), 2))
                 ;
 
                 break;
+            case 'portfolio_category':
+                $view = View::factory('main')
+                    ->set('projectList', array_chunk($portfolioModel->findByCategory((int)$param), 2))
+                ;
+
+                break;
+
+            default:
+                $view = View::factory($page);
         }
 
         return $view;

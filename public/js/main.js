@@ -201,11 +201,12 @@ $(window).load(function() {
     });
 
 
-    $("ul#menu>li>a, a#about_btn, a#nbgallery").click(function(){
+    $("ul#menu>li>a, ul#portfolioMenu>li>a").click(function(){
         $("body").removeClass("openNav");
         $(".m_navigation").removeClass("in");
         var page = $(this).data('page');
-        var path = '/ajax/get_page_content?page=' + page;
+        var param = $(this).data('param');
+        var path = '/ajax/get_page_content?page=' + page + '&param=' + param;
         isContacts = (path.indexOf("contacts")==-1)?false:true;
         $("li.portfolio_item").removeClass("current_item");
         $("ul#menu>li").removeClass("current");
