@@ -1,364 +1,205 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Cpanel extends Controller {
+class Controller_Cpanel extends Controller
+{
+    public function getBaseTemplate()
+    {
+        if (!Auth::instance()->logged_in('admin')) {
+            HTTP::redirect('/cpanel/login');
+        }
 
+        return View::factory('cpanel/template')
+            ->set('get', $_GET)
+            ->set('post', $_POST)
+            ;
+    }
 
-	private function check_role($role_type = 1)
-	{
-		if($role_type == 1)
-			if(!Auth::instance()->logged_in('admin'))
-				HTTP::redirect('/');
-		else if ($role_type == 2)
-			if(!Auth::instance()->logged_in('manager'))
-				HTTP::redirect('/');
-	}
+    public function action_index()
+    {
+        if (!Auth::instance()->logged_in('admin')) {
+            HTTP::redirect('/cpanel/login');
+        }
 
-	public function action_index()
-	{
         if (Auth::instance()->logged_in() && isset($_POST['logout'])) {
             Auth::instance()->logout();
             HTTP::redirect('/');
         }
 
+        $template = $this->getBaseTemplate();
+
+        $template->content = View::factory('cpanel/index')
+        ;
+
+        $this->response->body($template);
+    }
+
+    public function action_login()
+    {
         if (!Auth::instance()->logged_in() && isset($_POST['login'])) {
-            Auth::instance()->login($_POST['username'], $_POST['password'],true);
+            Auth::instance()->login($this->request->post('username'), $this->request->post('password'),true);
             HTTP::redirect('/cpanel');
         }
-        
-        $this->response->body( View::factory('admin_template')->set('admin_content', ''));
-	}
 
-	public function action_registration()
-	{
+        $template = View::factory('cpanel/login')
+            ->set('post', $this->request->post())
+        ;
 
+        $this->response->body($template);
+    }
 
-		$template = View::factory('admin_template');
-        $admin_content = '';
+    public function action_logout()
+    {
+        if (Auth::instance()->logged_in() && isset($_POST['logout'])) {
+            Auth::instance()->logout();
 
-		if (Auth::instance()->logged_in('admin')) {
-            $admin_content = View::factory('registration')
-                ->set('username', Arr::get($_POST,'username',''))
-                ->set('email', Arr::get($_POST,'email',''))
-                ->set('error', '')
-            ;
+            HTTP::redirect('/');
+        }
+    }
 
-            if (isset($_POST['reg'])) {
-                if (Arr::get($_POST,'username','')=="") {
-                    $error = View::factory('error');
-                    $error->zag = "Не указан логин!";
-                    $error->mess = " Укажите Ваш логин.";
-                    $admin_content->error = $error;
-                } elseif (Arr::get($_POST,'email','')=="") {
-                    $error = View::factory('error');
-                    $error->zag = "Не указана почта!";
-                    $error->mess = " Укажите Вашу почту.";
-                    $admin_content->error = $error;
-                } elseif (Arr::get($_POST,'password','')=="") {
-                    $error = View::factory('error');
-                    $error->zag = "Не указан пароль!";
-                    $error->mess = " Укажите Ваш пароль.";
-                    $admin_content->error = $error;
-                } elseif (Arr::get($_POST,'password','')!=Arr::get($_POST,'password2','')) {
-                    $error = View::factory('error');
-                    $error->zag = "Пароли не совпадают!";
-                    $error->mess = " Проверьте правильность подтверждения пароля.";
-                    $admin_content->error = $error;
-                } else {
-                    $user = ORM::factory('User');
-                    $user->values(array(
-                        'username' => $_POST['username'],
-                        'email' => $_POST['email'],
-                        'password' => $_POST['password'],
-                        'password_confirm' => $_POST['password2'],
-                    ));
+    public function action_registration()
+    {
+        if (!Auth::instance()->logged_in('admin')) {
+            HTTP::redirect('/cpanel/login');
+        }
 
-                    $some_error = false;
+        $template = View::factory('cpanel/registration')
+            ->set('post', $this->request->post())
+            ->set('error', '')
+        ;
 
-                    try {
-                        $user->save();
-                        $user->add("roles",ORM::factory("Role",1));
-                    }
+        if (count($this->request->post())) {
+            if (empty(Arr::get($_POST,'username'))) {
+                $template->set('error', '<div class="alert alert-danger"><strong>Не указан логин!</strong> Укажите Ваш логин.</div>');
+            } elseif (empty(Arr::get($_POST,'email'))) {
+                $template->set('error', '<div class="alert alert-danger"><strong>Не указана почта!</strong> Укажите Вашу почту.</div>');
+            } elseif (Arr::get($_POST,'password','')=="") {
+                $template->set('error', '<div class="alert alert-danger"><strong>Не указан пароль!</strong> Укажите Ваш пароль.</div>');
+            } else if (Arr::get($_POST,'password') != Arr::get($_POST,'password2')) {
+                $template->set('error', '<div class="alert alert-danger"><strong>Пароли не совпадают!</strong> Проверьте правильность подтверждения пароля.</div>');
+            } else {
+                $user = ORM::factory('User');
+                $user->values(array(
+                    'username' => $_POST['username'],
+                    'email' => $_POST['email'],
+                    'password' => $_POST['password'],
+                    'password_confirm' => $_POST['password2'],
+                ));
+                $some_error = false;
 
-                    catch (ORM_Validation_Exception $e) {
-                        $some_error = $e->errors('models');
-                    }
+                try {
+                    $user->save();
+                    $user->add("roles",ORM::factory("Role",1));
+                }
+                catch (ORM_Validation_Exception $e) {
+                    $some_error = $e->errors('models');
+                }
 
-                    if ($some_error) {
-                        $error = View::factory('error');
-                        $error->zag = "Ошибка регистрационных данных!";
-                        $error->mess = " Проверьте правильность ввода данных.";
+                if ($some_error) {
+                    $template->set('error', '<div class="alert alert-danger"><strong>Ошибка регистрационных данных!</strong> Проверьте правильность ввода данных.</div>');
 
-                        if (isset($some_error['username'])) {
-                            if ($some_error['username']=="models/user.username.unique") {
-                                $error->zag = "Такое имя уже есть в базе!";
-                                $error->mess = " Придумайте новое.";
-                            }
-                        } elseif (isset($some_error['email'])) {
-                            if ($some_error['email']=="email address must be an email address") {
-                                $error->zag = "Некорректный формат почты!";
-                                $error->mess = " Проверьте правильность написания почты.";
-                            }
-
-                            if ($some_error['email']=="models/user.email.unique") {
-                                $error->zag = "Такая почта есть в базе!";
-                                $error->mess = " Укажите другую почту.";
-                            }
+                    if (isset($some_error['username'])) {
+                        if ($some_error['username'] == "models/user.username.unique") {
+                            $template->set('error', '<div class="alert alert-danger"><strong>Такой логин уже есть в базе!</strong> Придумайте новый логин.</div>');
                         }
-
-                        $admin_content->error = $error;
                     }
+                    else if (isset($some_error['email'])) {
+                        if ($some_error['email']=="email address must be an email address") {
+                            $template->set('error', '<div class="alert alert-danger"><strong>Некорректный формат почты!</strong> Проверьте правильность написания почты.</div>');
+                        }
+                        if ($some_error['email']=="models/user.email.unique") {
+                            $template->set('error', '<div class="alert alert-danger"><strong>Такая почта есть в базе!</strong> Укажите другую почту.</div>');
+                        }
+                    }
+                } else {
+                    HTTP::redirect('/cpanel');
                 }
             }
         }
 
-		$this->response->body($template->set('admin_content', $admin_content));
-	}
+        $this->response->body($template);
+    }
 
-	public function action_add_item()
+    public function action_portfolio_items_list()
+    {
+        /** @var $portfolioModel Model_Portfolio */
+        $portfolioModel = Model::factory('Portfolio');
+
+        $template = $this->getBaseTemplate();
+
+        $template->content = View::factory('cpanel/portfolio_items_list')
+            ->set('itemsList', $portfolioModel->findAll(
+                Arr::get($this->request->query(), 'page', 1),
+                Arr::get($this->request->query(), 'limit', 20)
+            ))
+            ->set('itemsListCount', count($portfolioModel->findAll(0,0)))
+            ->set('page', Arr::get($this->request->query(), 'page', 1))
+        ;
+
+        $this->response->body($template);
+    }
+
+	public function action_add_portfolio_item()
 	{
-        /** @var $adminModel Model_Admin */
-        $adminModel = Model::factory('Admin');
+        /** @var $portfolioModel Model_Portfolio */
+        $portfolioModel = Model::factory('Portfolio');
 
-        /** @var $itemModel Model_Item */
-        $itemModel = Model::factory('Item');
+        $template = $this->getBaseTemplate();
 
-		$template = View::factory("admin_template");
-		$admin_content = '';
+        $template->content = View::factory('cpanel/add_portfolio_item')
+            ->set('categories', $portfolioModel->getCategories())
+            ->set('get', $this->request->query())
+        ;
 
-		if (Auth::instance()->logged_in('admin')){
-            $admin_content = View::factory('add_item')
-                ->set('get', $this->request->query())
-            ;
+        if (isset($_POST['addPortfolioPortfolio'])) {
+            $id = $portfolioModel->setPortfolio(
+                null,
+                (int)$this->request->post('category_id'),
+                $this->request->post('title'),
+                $this->request->post('description')
+            );
 
-            if (isset($_POST['additem'])) {
-                $id = $adminModel->addItem($this->request->post());
-
-                HTTP::redirect('/admin/control_panel/redact_item?id=' . $id);
-            }
-
-            if (isset($_POST['removeproduct'])) {
-                $itemModel->deleteItem(['id' => $_POST['removeproduct']]);
-
-                HTTP::redirect($this->request->referrer());
-            }
+            HTTP::redirect('/cpanel/redact_portfolio_item/' . $id);
         }
 
-		$this->response->body($template->set('admin_content', $admin_content));
+		$this->response->body($template);
 	}
 
-	public function action_redact_item()
+	public function action_redact_portfolio_item()
 	{
-        /** @var $adminModel Model_Admin */
-        $adminModel = Model::factory('Admin');
+        /** @var $portfolioModel Model_Portfolio */
+        $portfolioModel = Model::factory('Portfolio');
 
-        /** @var $itemModel Model_Item */
-        $itemModel = Model::factory('Item');
-
-		$template = View::factory("admin_template");
-		$admin_content = '';
+        $template = $this->getBaseTemplate();
         
-		if (Auth::instance()->logged_in('admin')){
-            $item_id = Arr::get($_GET, 'id', 0);
-            $removeimg = isset($_POST['removeimg']) ? $_POST['removeimg'] : 0;
-            $filename = Arr::get($_FILES, 'imgname', []);
-            $files = Arr::get($_FILES, 'filename', []);
+        $portfolioItemId = $this->request->param('id');
+        $filename = Arr::get($_FILES, 'imgname', []);
 
-            if ($item_id != '' && !empty($filename)) {
-                $adminModel->loadItemImg($_FILES, $item_id);
+        if ($portfolioItemId != '' && !empty($filename)) {
+            $portfolioModel->loadPortfolioImg($_FILES, $portfolioItemId);
 
-                HTTP::redirect($this->request->referrer());
-            }
+            HTTP::redirect($this->request->referrer());
+        }
 
-            if ($item_id != '' && !empty($files)) {
-                $itemModel->loadItemFile($_FILES, $item_id);
+        if (isset($_POST['redactPortfolioItem'])) {
+            $portfolioModel->setItem(
+                $portfolioItemId,
+                (int)$this->request->post('category_id'),
+                $this->request->post('title'),
+                $this->request->post('description')
+            );
 
-                HTTP::redirect($this->request->referrer());
-            }
+            HTTP::redirect($this->request->referrer());
+        }
 
-            if ($removeimg != 0) {
-                $itemModel->removeItemImg($this->request->post());
+        $portfolioItem = $portfolioModel->findById($portfolioItemId);
 
-                HTTP::redirect($this->request->referrer());
-            }
+        $template->content = View::factory('cpanel/redact_portfolio_item')
+            ->set('portfolioItem', $portfolioItem)
+            ->set('portfolioItemImgs', $portfolioModel->findImgsByItemId($portfolioItemId))
+            ->set('categories', $portfolioModel->getCategories())
+        ;
 
-            $removeFile = Arr::get($_POST, 'removefile');
-
-            if (!empty($removeFile)) {
-                $itemModel->removeItemFile($this->request->post());
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            if (isset($_POST['redactitem'])) {
-                $itemModel->setItem($_POST);
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            if (isset($_POST['newItemParam'])) {
-                $itemModel->setItemParams($this->request->post());
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            if (isset($_POST['removeProductParam'])) {
-                $itemModel->removeItemParams($this->request->post());
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            $item = $itemModel->getItem($this->request->query());
-            $categoryItems = (!empty($item) ? $itemModel->getItem(['category_id' => $item[0]['category']]) : []);
-            $sortData = [];
-
-            foreach ($categoryItems as $itemsData) {
-                $sortData[$itemsData['sort']] = $itemsData['sort'];
-            }
-
-            $admin_content = View::factory('admin_redact_item')
-                ->set('item_info', (!empty($item) ? $item[0] : []))
-                ->set('sortData', $sortData)
-                ->set('itemParams', $itemModel->getItemParams($this->request->query()))
-                ->set('get', $this->request->query())
-                ->set('item_id', $item_id)
-            ;
-		}
-        
-		$this->response->body($template->set('admin_content', $admin_content));
-	}
-
-	public function action_reviews_moderation()
-	{
-        /** @var $adminModel Model_Admin */
-        $adminModel = Model::factory('Admin');
-
-		$template = View::factory("admin_template");
-		$admin_content = '';
-
-		if (Auth::instance()->logged_in('admin')){
-            if (isset($_POST['unshowreview'])) {
-                $adminModel->setReview([
-                    'id' => $_POST['unshowreview'],
-                    'status' => 0
-                ]);
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            if (isset($_POST['showreview'])) {
-                $adminModel->setReview([
-                    'id' => $_POST['showreview'],
-                    'status' => 1
-                ]);
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            $admin_content = View::factory('reviews_moderation')
-                ->set('showedReviewsData', $adminModel->findReviews(['status' => 1]))
-                ->set('unshowedReviewsData', $adminModel->findReviews(['status' => 0]))
-                ->set('get', $this->request->query());
-		}
-
-		$this->response->body($template->set('admin_content', $admin_content));
-	}
-
-	public function action_redact_main_page()
-	{
-        /** @var $adminModel Model_Admin */
-        $adminModel = Model::factory('Admin');
-
-		/** @var $contentModel Model_Content */
-		$contentModel = Model::factory('Content');
-
-		$template = View::factory("admin_template");
-		$admin_content = '';
-
-		if (Auth::instance()->logged_in('admin')){
-            if (isset($_POST['addhit'])) {
-                $adminModel->addHit($this->request->post());
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            if (isset($_POST['removehit'])) {
-                $adminModel->removeHit($this->request->post());
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            if (isset($_POST['redactpage'])) {
-                $adminModel->setPage($this->request->post());
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            $admin_content = View::factory('admin_redact_main_page')
-                ->set('pageData', $contentModel->getPage(['id' => 3]))
-                ->set('get', $this->request->query())
-            ;
-		}
-
-		$this->response->body($template->set('admin_content', $admin_content));
-	}
-
-	public function action_redact_catalogs()
-	{
-        /** @var $adminModel Model_Admin */
-        $adminModel = Model::factory('Admin');
-
-		$template = View::factory("admin_template");
-		$admin_content = '';
-
-		if (Auth::instance()->logged_in('admin')){
-            $filename=Arr::get($_FILES, 'filename', '');
-
-            if (!empty($filename)) {
-                $adminModel->loadCatalogs($_FILES);
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            if (isset($_POST['removefile'])) {
-                $adminModel->removeCatalogs($this->request->post());
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            $admin_content = View::factory('admin_redact_catalogs')
-                ->set('catalogsData', $adminModel->getCatalogsData())
-                ->set('get', $this->request->query())
-            ;
-		}
-
-		$this->response->body($template->set('admin_content', $admin_content));
-	}
-
-	public function action_add_category()
-	{
-        /** @var $adminModel Model_Admin */
-        $adminModel = Model::factory('Admin');
-
-		$template = View::factory("admin_template");
-		$admin_content = '';
-
-		if (Auth::instance()->logged_in('admin')){
-            if (isset($_POST['addgroup'])) {
-                $adminModel->addCategory($this->request->post());
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            if (isset($_POST['removegroup'])) {
-                $adminModel->removeCategory($this->request->post());
-                HTTP::redirect($this->request->referrer());
-            }
-
-            $admin_content = View::factory('admin_add_category')
-                ->set('get', $this->request->query());
-		}
-
-		$this->response->body($template->set('admin_content', $admin_content));
+		$this->response->body($template);
 	}
 
 	public function action_redact_page()
