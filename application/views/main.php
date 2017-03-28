@@ -6,7 +6,7 @@ $portfolioModel = Model::factory('Portfolio');
     <?foreach ($projectList as $projectPair) {?>
     <li style="width: 50%;">
         <?foreach ($projectPair as $item) {?>
-        <a href="#">
+        <a href="#" data-id="<?=$item['id'];?>">
             <span class="mediaHolder" style="height: 100%;">
                 <img src="<?=($portfolioModel->findMainItemImg($item['id']) !== null ? $portfolioModel->findMainItemImg($item['id']) : '/public/images/logo.png');?>" alt="" style="opacity: 1; height: 100%;width: 100%">
                 <span class="mediaCaption">

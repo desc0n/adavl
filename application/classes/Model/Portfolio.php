@@ -156,7 +156,7 @@ class Model_Portfolio extends Kohana_Model
             if (copy($files['tmp_name'], $file_name))	{
                 $image = Image::factory($file_name);
                 $image
-                    ->resize(700, NULL)
+                    ->resize(1000, NULL)
                     ->save($file_name,100)
                 ;
 
@@ -165,7 +165,7 @@ class Model_Portfolio extends Kohana_Model
                 if (copy($files['tmp_name'], $thumb_file_name))	{
                     $thumb_image = Image::factory($thumb_file_name);
                     $thumb_image
-                        ->resize(300, NULL)
+                        ->resize(500, NULL)
                         ->save($thumb_file_name,100)
                     ;
 

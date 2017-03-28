@@ -124,6 +124,11 @@ class Model_Content extends Kohana_Model
 
     public function getProjectPageContent($id)
     {
-        return View::factory('project');
+        /** @var $portfolioModel Model_Portfolio */
+        $portfolioModel = Model::factory('Portfolio');
+
+        return View::factory('project')
+            ->set('projectData', $portfolioModel->findById($id))
+            ;
     }
 }
