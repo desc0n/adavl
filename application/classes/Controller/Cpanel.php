@@ -202,57 +202,26 @@ class Controller_Cpanel extends Controller
 		$this->response->body($template);
 	}
 
-	public function action_redact_page()
-	{
-        /** @var $adminModel Model_Admin */
-        $adminModel = Model::factory('Admin');
+    public function action_contacts()
+    {
+        /** @var $contentModel Model_Content */
+        $contentModel = Model::factory('Content');
 
-		/** @var $contentModel Model_Content */
-		$contentModel = Model::factory('Content');
+        $template = $this->getBaseTemplate();
 
-		$template = View::factory("admin_template");
-		$admin_content = '';
-        
-		if (Auth::instance()->logged_in('admin')){
-            if (isset($_POST['redactpage'])) {
-                $adminModel->setPage($this->request->post());
+        if (!empty($this->request->post('addContact'))) {
+            $contentModel->addContact($this->request->post('type'), $this->request->post('value'));
+            HTTP::redirect($this->request->referrer());
+        }
 
-                HTTP::redirect($this->request->referrer());
-            }
+        if (!empty($this->request->post('updateContacts'))) {
+            $contentModel->updateContacts($this->request->post());
+            HTTP::redirect($this->request->referrer());
+        }
 
-            $admin_content = View::factory('admin_redact_page')
-                ->set('pages', $contentModel->getPages())
-                ->set('pageData', $contentModel->getPage($this->request->query()))
-                ->set('get', $this->request->query())
-            ;
-		}
-
-		$this->response->body($template->set('admin_content', $admin_content));
-	}
-
-	public function action_redact_contacts()
-	{
-        /** @var $adminModel Model_Admin */
-        $adminModel = Model::factory('Admin');
-
-		/** @var $contentModel Model_Content */
-		$contentModel = Model::factory('Content');
-
-		$template = View::factory("admin_template");
-		$admin_content = '';
-
-		if (Auth::instance()->logged_in('admin')){
-            if (isset($_POST['redactcontacts'])) {
-                $adminModel->setContacts($this->request->post());
-
-                HTTP::redirect($this->request->referrer());
-            }
-
-            $admin_content = View::factory('admin_redact_contacts')
-                ->set('contacts', $contentModel->findAllContacts())
-            ;
-		}
-
-		$this->response->body($template->set('admin_content', $admin_content));
-	}
+        $template->content = View::factory('cpanel/contacts')
+            ->set('contacts', $contentModel->getContacts())
+        ;
+        $this->response->body($template);
+    }
 }

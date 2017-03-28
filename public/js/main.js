@@ -253,8 +253,6 @@ $(window).load(function() {
             });
         });
 
-        resizeImgs();
-
         return false;
     });
 

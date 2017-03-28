@@ -1,6 +1,9 @@
+<?php
+/** @var Model_Content $contentModel */
+$contentModel = Model::factory('Content');
+?>
 <div id="carousel" class="owl-carousel lt_gray" data-cycle-fx=carousel data-cycle-swipe=true data-cycle-timeout=0 data-cycle-carousel-visible=2 data-cycle-carousel-fluid=true>
     <div class="cycle-next"></div>
-
     <article class="content_item">
         <div class="content_item_inner2">
             <h1 class="title1 ind1 lt_gray">
@@ -12,7 +15,9 @@
                         Адрес:&nbsp;
                     </div>
                     <div class="address_description">
-                        Россия
+                        <?foreach ($contentModel->getContacts(['address']) as $contact){?>
+                            <div><?=$contact['value'];?></div>
+                        <?}?>
                     </div>
                 </li>
                 <li class="wrapper">
@@ -20,11 +25,9 @@
                         Телефоны:&nbsp;
                     </div>
                     <div class="address_description">
-                        <a href="callto:+74320000000" >8 (432) 000 0000</a>
-                        <div><a href="callto:+74320000001" >8 (432) 000 0001</a></div>
-
-                        <div><a href="callto:+74320000002" >8 (432) 000 0002</a></div>
-
+                        <?foreach ($contentModel->getContacts(['phone']) as $contact){?>
+                        <div><a href="callto:+<?=preg_replace('/[\D]+/','', $contact['value']);?>" ><?=$contact['value'];?></a></div>
+                        <?}?>
                     </div>
                 </li>
 
@@ -33,8 +36,9 @@
                         Email:&nbsp;
                     </div>
                     <div class="address_description">
-
-                        <a href="mailto:admin@adavl.ru" class="link1">admin@adavl.ru</a>
+                        <?foreach ($contentModel->getContacts(['email']) as $contact){?>
+                            <div><a href="mailto:<?=$contact['value'];?>" class="link1"><?=$contact['value'];?></a></div>
+                        <?}?>
                     </div>
                 </li>
             </ul>

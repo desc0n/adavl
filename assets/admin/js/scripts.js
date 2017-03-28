@@ -38,3 +38,10 @@ function removePortfolioItem(id)
             $('#portfolioItemRow' + id).remove();
         });
 }
+function removeContact(id)
+{
+    $.ajax({url: '/ajax/remove_contact', type: 'POST', data: {id: id}, async: true})
+        .done(function () {
+            $('#contactRow' + id).remove();
+        });
+}
