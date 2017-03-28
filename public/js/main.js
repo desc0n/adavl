@@ -212,8 +212,8 @@ $(window).load(function() {
         $("ul#menu>li").removeClass("current");
         $(this).parent("li").addClass("current");
 
-        if (page == 'main') {
-            loadMainPage();
+        if (page == 'main' || page=="portfolio_category") {
+            loadPage(page, param);
             return;
         }
 
@@ -228,18 +228,7 @@ $(window).load(function() {
             $("div.open_nav_btns a#nbgallery").css("display","none");
             $("div.open_nav_btns a#about_btn").css("display", "block");
         }
-        if($(this).attr("id")=="nbgallery")
-        {
-            $.get(path, {}, function(data){
-                $("div#content_inner").html("");
-                $("body,html").scrollTop(0);
-                $("div#content_inner").html(data);
-                $(".m_navigation").removeClass("in");
-                projectListClick();
-                $("body,html").scrollTop(0);
-            })
-            return false;
-        }
+
         global_images = 0;
         $("div#preloader").fadeIn("fast", function(){
             $.get(path, {}, function(data){
@@ -263,6 +252,8 @@ $(window).load(function() {
 
             });
         });
+
+        resizeImgs();
 
         return false;
     });
@@ -381,7 +372,7 @@ $(window).load(function() {
         return false;
     });
 
-    loadMainPage();
+    loadPage('main', null);
 
     $("a#nbgallery").click(function(){
         path = $(this).attr("href");
@@ -407,9 +398,9 @@ $(window).load(function() {
     });
 });
 
-function loadMainPage()
+function loadPage(page, param)
 {
-    $.get('/ajax/get_page_content?page=main', {}, function(data)
+    $.get('/ajax/get_page_content?page=' + page + '&param=' + param, {}, function(data)
     {
         $("div#content_inner").html(data);
         $(".m_navigation").removeClass("in");
@@ -418,7 +409,7 @@ function loadMainPage()
         $("div#content_inner").scrollTop(0);
 
         $("div#content_inner img").css('opacity', 0);
-        projectListClick();
+
         if (typeof extraLoaded == 'function')
         {
             extraLoaded();
@@ -437,24 +428,7 @@ function loadMainPage()
             });
     });
 
-    setInterval(function(){
-        if ($(".langWay li .mediaHolder img").length) {
-            var r = $(".langWay li .mediaHolder img").width();
-            $(".langWay li").width(r-2);
-        } else {};
-    },1000);
-
-    $(window).resize(function(){
-        setInterval(function(){
-            if ($(".langWay li .mediaHolder img").length) {
-                var r = $(".langWay li .mediaHolder img").width();
-                $(".langWay li").width(r-2);
-            } else {};
-        },1000);
-    });
-
     return false;
 }
-
 
 
