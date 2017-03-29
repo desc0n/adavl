@@ -233,23 +233,25 @@ $(window).load(function() {
         $("div#preloader").fadeIn("fast", function(){
             $.get(path, {}, function(data){
                 $("div#content_inner").html(data);
-                $("div#content_inner img").one('load', function() {
-                    global_images++;
-                    if (global_images>=$("div#content_inner img").length)
-                    {
-                        initContentResize();
 
-                        if (isContacts)
-                        {
+                if ($("div#content_inner img").length) {
+                    $("div#content_inner img").one('load', function () {
+                        global_images++;
+                        if (global_images >= $("div#content_inner img").length) {
+                            initContentResize();
+
+                            if (isContacts) {
+                            }
+                            $("div#preloader").fadeOut();
                         }
-                        $("div#preloader").fadeOut();
-                    }
 
-                }).each(function() {
-                    if(this.complete) $(this).load();
+                    }).each(function () {
+                        if (this.complete) $(this).load();
 
-                });
-
+                    });
+                } else {
+                    $("div#preloader").fadeOut();
+                }
             });
         });
 
