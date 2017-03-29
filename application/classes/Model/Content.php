@@ -112,6 +112,13 @@ class Model_Content extends Kohana_Model
 
                 break;
 
+            case 'services':
+                $view = View::factory('services')
+                    ->set('servicesList', $this->findAllServices())
+                ;
+
+                break;
+
             default:
                 $view = View::factory($page);
         }
@@ -189,6 +196,75 @@ class Model_Content extends Kohana_Model
     public function removeContact($id)
     {
         DB::delete('content__contacts')
+            ->where('id', '=', $id)
+            ->execute()
+        ;
+    }
+
+    /**
+     * @return array
+     */
+    public function findAllServices()
+    {
+        return DB::select()
+            ->from('content__services')
+            ->execute()
+            ->as_array()
+            ;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return array
+     */
+    public function findServiceById($id)
+    {
+        return DB::select()
+            ->from('content__services')
+            ->where('id', '=', $id)
+            ->limit(1)
+            ->execute()
+            ->current()
+        ;
+    }
+
+    /**
+     * @param string $title
+     * @param string $description
+     *
+     * @return bool
+     */
+    public function addService($title, $description)
+    {
+        DB::insert('content__services', ['title', 'description'])
+            ->values([$title, $description])
+            ->execute()
+        ;
+
+        return true;
+    }
+
+    /**
+     * @param int $id
+     * @param string $title
+     * @param string $description
+     */
+    public function updateService($id, $title, $description)
+    {
+        DB::update('content__services')
+            ->set(['title' => $title, 'description' => $description])
+            ->where('id', '=', $id)
+            ->execute()
+        ;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function removeService($id)
+    {
+        DB::delete('content__services')
             ->where('id', '=', $id)
             ->execute()
         ;
