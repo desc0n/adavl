@@ -57,6 +57,9 @@
                     <li>
                         <a href="/cpanel/redact_page/activity"><i class="fa fa-pencil-square-o fa-fw"></i> Редактировать деятельность</a>
                     </li>
+                    <li>
+                        <a href="/cpanel/services"><i class="fa fa-cogs fa-fw"></i> Редактировать услуги</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

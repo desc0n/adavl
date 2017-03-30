@@ -243,4 +243,24 @@ class Model_Content extends Kohana_Model
             ->execute()
         ;
     }
+
+
+
+    /**
+     * @param array $files
+     * @param int $id
+     */
+    public function loadServiceImg($id, $files)
+    {
+        $type = mb_strrchr ($files['imgname']['name'], '.', false);
+        $fileName = 'public/img/services/' . $id . $type;
+
+        if (copy($files['imgname']['tmp_name'], $fileName))	{
+            $image = Image::factory($fileName);
+            $image
+                ->resize(500, NULL)
+                ->save($fileName,100)
+            ;
+        }
+    }
 }

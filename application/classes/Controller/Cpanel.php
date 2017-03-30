@@ -225,6 +225,53 @@ class Controller_Cpanel extends Controller
         $this->response->body($template);
     }
 
+    public function action_services()
+    {
+        /** @var $contentModel Model_Content */
+        $contentModel = Model::factory('Content');
+
+        $template = $this->getBaseTemplate();
+
+        if (!empty($this->request->post('addService'))) {
+            $contentModel->addService($this->request->post('title'), $this->request->post('description'));
+            HTTP::redirect($this->request->referrer());
+        }
+
+        $template->content = View::factory('cpanel/services')
+            ->set('services', $contentModel->findAllServices())
+        ;
+
+        $this->response->body($template);
+    }
+
+    public function action_redact_service()
+    {
+        /** @var $contentModel Model_Content */
+        $contentModel = Model::factory('Content');
+
+        $template = $this->getBaseTemplate();
+        $id = (int)$this->request->param('id');
+
+        $filename = Arr::get($_FILES, 'imgname');
+
+        if (!empty($filename)) {
+            $contentModel->loadServiceImg($id, $_FILES);
+
+            HTTP::redirect($this->request->referrer());
+        }
+
+        if (!empty($this->request->post('updateService'))) {
+            $contentModel->updateService($id, $this->request->post('title'), $this->request->post('description'));
+            HTTP::redirect($this->request->referrer());
+        }
+
+        $template->content = View::factory('cpanel/redact_service')
+            ->set('serviceData', $contentModel->findServiceById($id))
+        ;
+
+        $this->response->body($template);
+    }
+
     public function action_redact_page()
     {
         /** @var $contentModel Model_Content */
