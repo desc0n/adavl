@@ -154,11 +154,11 @@ class Model_Portfolio extends Kohana_Model
             $file_name = 'public/img/original/' . $new_id . '_' . $imageName;
 
             if (copy($files['tmp_name'], $file_name))	{
-                $image = Image::factory($file_name);
-                $image
-                    ->resize(1000, NULL)
-                    ->save($file_name,100)
-                ;
+//                $image = Image::factory($file_name);
+//                $image
+//                    ->resize(1000, NULL)
+//                    ->save($file_name,100)
+//                ;
 
                 $thumb_file_name = 'public/img/thumb/' . $new_id . '_' . $imageName;
 

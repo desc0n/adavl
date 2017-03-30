@@ -52,7 +52,7 @@
             <ul class="reg menu" id="menu">
                 <li class="menu_item portfolio-menu-item"><a href="#" data-page="main">Портфолио</a></li>
                 <li class="menu_item"><a href="#" data-page="services">Услуги</a></li>
-                <li class="menu_item"><a href="#">Наша деятельность</a></li>
+                <li class="menu_item"><a href="#" data-page="activity">Наша деятельность</a></li>
                 <li class="menu_item"><a href="#" data-page="contacts">Контакты</a></li>
             </ul>
         </div>

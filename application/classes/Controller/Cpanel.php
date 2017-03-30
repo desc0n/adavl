@@ -224,4 +224,23 @@ class Controller_Cpanel extends Controller
         ;
         $this->response->body($template);
     }
+
+    public function action_redact_page()
+    {
+        /** @var $contentModel Model_Content */
+        $contentModel = Model::factory('Content');
+
+        $template = $this->getBaseTemplate();
+        $slug = $this->request->param('id');
+
+        if (!empty($this->request->post('updateContent'))) {
+            $contentModel->updatePageContent($slug, $this->request->post('content'));
+            HTTP::redirect($this->request->referrer());
+        }
+
+        $template->content = View::factory('cpanel/redact_page')
+            ->set('pageData', $contentModel->findPageBySlug($slug))
+        ;
+        $this->response->body($template);
+    }
 }

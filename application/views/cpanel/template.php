@@ -52,7 +52,10 @@
                         <a href="/cpanel/add_portfolio_item"><i class="fa fa-file fa-fw"></i> Добавить проект</a>
                     </li>
                     <li>
-                        <a href="/cpanel/contacts"><i class="fa fa-pencil-square-o fa-fw"></i> Редактировать контакты</a>
+                        <a href="/cpanel/contacts"><i class="fa fa-phone fa-fw"></i> Редактировать контакты</a>
+                    </li>
+                    <li>
+                        <a href="/cpanel/redact_page/activity"><i class="fa fa-pencil-square-o fa-fw"></i> Редактировать деятельность</a>
                     </li>
                 </ul>
             </div>

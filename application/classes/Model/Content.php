@@ -26,34 +26,6 @@ class Model_Content extends Kohana_Model
     }
     
     /**
-     * @return array
-     */
-    public function getPages()
-    {
-        return DB::select('p.*')
-            ->from(['pages__pages', 'p'])
-            ->join(['pages__menu', 'm'])
-            ->on('m.page_id', '=', 'p.id')
-            ->where('m.status_id', '=', 1)
-            ->execute()
-            ->as_array()
-        ;
-    }
-
-    public function getPage($params = [])
-    {
-        $id = Arr::get($params, 'id', 0);
-
-        return DB::select()
-            ->from('pages__pages')
-            ->where('id', '=', $id)
-            ->limit(1)
-            ->execute()
-            ->current()
-        ;
-    }
-
-    /**
      * @param string $slug
      * 
      * @return false|array
@@ -61,7 +33,7 @@ class Model_Content extends Kohana_Model
     public function findPageBySlug($slug = '')
     {
         return DB::select()
-            ->from('pages__pages')
+            ->from('content__page')
             ->where('slug', '=', $slug)
             ->limit(1)
             ->execute()
@@ -71,19 +43,14 @@ class Model_Content extends Kohana_Model
 
     /**
      * @param string $slug
-     *
-     * @return false|array
+     * @param string $content
      */
-    public function findMenuByPageSlug($slug = '')
+    public function updatePageContent($slug, $content)
     {
-        return DB::select('p.*')
-            ->from(['pages__pages', 'p'])
-            ->join(['pages__menu', 'm'])
-            ->on('p.id', '=', 'm.page_id')
-            ->where('p.slug', '=', $slug)
-            ->limit(1)
+        DB::update('content__page')
+            ->set(['content' => $content])
+            ->where('slug', '=', $slug)
             ->execute()
-            ->current()
         ;
     }
 
@@ -115,6 +82,13 @@ class Model_Content extends Kohana_Model
             case 'services':
                 $view = View::factory('services')
                     ->set('servicesList', $this->findAllServices())
+                ;
+
+                break;
+
+            case 'activity':
+                $view = View::factory('activity')
+                    ->set('pageData', $this->findPageBySlug('activity'))
                 ;
 
                 break;

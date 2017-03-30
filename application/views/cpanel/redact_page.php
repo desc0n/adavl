@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Редактирование страницы сайта</h1>
+        <h2 class="page-header">Редактирование страницы "<?=Arr::get($pageData, 'title', '');?>"</h2>
     </div>
-    <!-- /.col-lg-12 -->
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -12,7 +11,7 @@
                 <textarea id="redact_content_text" name="content" class="ckeditor"><?=Arr::get($pageData, 'content', '');?></textarea>
             </div>
             <div class="col-lg-3">
-                <button type="submit" class="btn btn-primary" name="redact_page">Сохранить</button>
+                <button type="submit" class="btn btn-primary" name="updateContent" value="1">Сохранить</button>
             </div>
         </form>
     </div>
