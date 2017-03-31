@@ -10,13 +10,13 @@
     <link href="/public/i/fav.png"  sizes="38x38" rel="shortcut icon" type="image/png" />
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="/assets/admin/css/styles.css" />
+    <link rel="stylesheet" href="/assets/admin/css/styles.css?v=2" />
     <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.css" />
     <!-- jQuery -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="/assets/bootstrap/js/bootstrap.js"></script>
     <script src="/assets/bootstrap/js/bootstrap3-typeahead.js"></script>
-    <script src="/assets/admin/js/scripts.js"></script>
+    <script src="/assets/admin/js/scripts.js?v=2"></script>
     <script src="/assets/admin/js/holder.js"></script>
     <script src="/assets/admin/js/ckeditor/ckeditor.js"></script>
 </head>

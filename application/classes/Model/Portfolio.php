@@ -194,6 +194,12 @@ class Model_Portfolio extends Kohana_Model
     {
         $itemImgs = $this->findImgsByItemId($itemId);
 
+        foreach ($itemImgs as $img) {
+            if ((bool)$img['main']) {
+                return '/public/img/original/' . $img['src'];
+            }
+        }
+
         return isset($itemImgs[0]['src']) ? '/public/img/original/' . $itemImgs[0]['src'] : null;
     }
 
@@ -203,5 +209,25 @@ class Model_Portfolio extends Kohana_Model
     public function removeImg($id)
     {
         DB::delete('portfolio__imgs')->where('id', '=', $id)->execute();
+    }
+
+    /**
+     * @param int $imgId
+     * @param int $itemId
+     * @param int $value
+     */
+    public function setMainItemImg($imgId, $itemId, $value)
+    {
+        DB::update('portfolio__imgs')
+            ->set(['main' => 0])
+            ->where('item_id', '=', $itemId)
+            ->execute()
+        ;
+
+        DB::update('portfolio__imgs')
+            ->set(['main' => $value])
+            ->where('id', '=', $imgId)
+            ->execute()
+        ;
     }
 }

@@ -1,21 +1,21 @@
 $(document).ready(function() {
-    $('#street').typeahead({
-        source: function (query, process) {
-            return $.get('/ajax/find_street', {query: query}, function (data) {
-                var json = JSON.parse(data); // string to json
-
-                return process(json);
-            });
-        }
+    $('#setMainItemPage').on('click', function () {
+        setMainItemImg($(this).val(), + $(this).prop('checked'));
     });
 });
 
-function redactPortfolioItemImg(id, src)
+function redactPortfolioItemImg(id, src, main)
 {
+    $('#setMainItemPage').prop('checked', false);
+
     $('#redactImgModal .modal-body')
         .html('')
         .append('<img src="/public/img/thumb/' + src + '" data-id="' + id + '">')
     ;
+
+    if (main == 1) {
+        $('#setMainItemPage').prop('checked', true);
+    }
 
     $('#redactImgModal').modal('toggle');
 }
@@ -43,5 +43,19 @@ function removeContact(id)
     $.ajax({url: '/ajax/remove_contact', type: 'POST', data: {id: id}, async: true})
         .done(function () {
             $('#contactRow' + id).remove();
+        });
+}
+function setMainItemImg(itemId, value) {
+    var imgId = $('#redactImgModal .modal-body img').data('id');
+
+    $.ajax({url: '/ajax/set_main_item_img', type: 'POST', data: {imgId: imgId, itemId: itemId, value: value}, async: true})
+        .done(function () {
+            $('#redactImgModal').modal('toggle');
+
+            $('a.thumbnail img').removeClass('main-item-img')
+
+            if (value == 1) {
+                $('#portfolioItemImg' + imgId + ' img').addClass('main-item-img');
+            }
         });
 }

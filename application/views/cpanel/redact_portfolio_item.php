@@ -5,8 +5,8 @@
             <h3>Изображение</h3>
             <?foreach($portfolioItemImgs as $img){?>
                 <div class="col-lg-3" id="portfolioItemImg<?=$img['id'];?>">
-                    <a href="#" class="thumbnail" onclick="redactPortfolioItemImg(<?=$img['id'];?>, '<?=$img['src'];?>');">
-                        <img src="/public/img/thumb/<?=$img['src'];?>">
+                    <a href="#" class="thumbnail" onclick="redactPortfolioItemImg(<?=$img['id'];?>, '<?=$img['src'];?>', <?=(int)$img['main'];?>);">
+                        <img src="/public/img/thumb/<?=$img['src'];?>" class="<?=((bool)$img['main'] ? 'main-item-img' : '');?>">
                     </a>
                 </div>
             <?}?>
@@ -86,6 +86,7 @@
 
             </div>
             <div class="modal-footer">
+                <span><input type="checkbox" id="setMainItemPage" value="<?=Arr::get($portfolioItem, 'id');?>"> Сделать главной</span>
                 <button class="btn btn-danger" onclick="removePortfolioItemImg();">Удалить изображение</button>
             </div>
         </div>
