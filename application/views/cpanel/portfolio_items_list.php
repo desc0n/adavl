@@ -35,7 +35,7 @@ $portfolio = Model::factory('Portfolio');
     <div class="col-lg-12 form-group">
         <ul class="pagination">
             <?for ($i = 1; $i <= ceil($itemsListCount / $portfolio->defaultLimit); $i++){?>
-                <li <?=($i === $page ? 'class="active"' : null);?>><a href="/cpanel/portfolio_items_list/?page=<?=$i;?>"><?=$i;?></a></li>
+                <li <?=($i === (int)$page ? 'class="active"' : null);?>><a href="/cpanel/portfolio_items_list/?page=<?=$i;?>"><?=$i;?></a></li>
             <?}?>
         </ul>
     </div>
