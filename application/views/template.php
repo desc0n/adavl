@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta charset="utf-8" />
     <link rel="icon" href="/public/images/logo.png" sizes="38x38" type="image/png">
-    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/style.css?v=3" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/style.css?v=4" />
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/responsive.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/others.css" />
     <script src="/public/js/jquery.js"></script>
@@ -23,7 +23,7 @@
     <script src="/public/js/jquery.cycle2.carousel.js"></script>
     <script src="/public/js/jquery.cycle2.swipe.js"></script>
     <script src="/public/js/jquery.preloader.js"></script>
-    <script src="/public/js/main.js?v=3"></script>
+    <script src="/public/js/main.js?v=4"></script>
     <script src="/public/js/extra.js"></script>
  </head>
 <body id="home_page">
