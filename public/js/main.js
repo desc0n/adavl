@@ -206,54 +206,9 @@ $(window).load(function() {
         $(".m_navigation").removeClass("in");
         var page = $(this).data('page');
         var param = $(this).data('param');
-        var path = '/ajax/get_page_content?page=' + page + '&param=' + param;
-        isContacts = (path.indexOf("contacts")==-1)?false:true;
-        $("li.portfolio_item").removeClass("current_item");
-        $("ul#menu>li").removeClass("current");
-        $(this).parent("li").addClass("current");
-
-        if (page == 'main' || page=="portfolio_category") {
             loadPage(page, param);
-            return;
-        }
 
-        var global_images = 0;
-        if ($(this).attr("id")=="about_btn" || $(this).attr("data-page")=="about_page")
-        {
-            $("div.open_nav_btns a#nbgallery").css("display","block");
-            $("div.open_nav_btns a#about_btn").css("display", "none");
-        }
-        else
-        {
-            $("div.open_nav_btns a#nbgallery").css("display","none");
-            $("div.open_nav_btns a#about_btn").css("display", "block");
-        }
 
-        global_images = 0;
-        $("div#preloader").fadeIn("fast", function(){
-            $.get(path, {}, function(data){
-                $("div#content_inner").html(data);
-
-                if ($("div#content_inner img").length) {
-                    $("div#content_inner img").one('load', function () {
-                        global_images++;
-                        if (global_images >= $("div#content_inner img").length) {
-                            initContentResize();
-
-                            if (isContacts) {
-                            }
-                            $("div#preloader").fadeOut();
-                        }
-
-                    }).each(function () {
-                        if (this.complete) $(this).load();
-
-                    });
-                } else {
-                    $("div#preloader").fadeOut();
-                }
-            });
-        });
 
         return false;
     });
@@ -312,7 +267,7 @@ $(window).load(function() {
         return false;
     });
 
-    $("body").on('click', '#js_main_project_list a', function(){
+    $("body").on('click', 'a.project-link', function(){
         $("ul#menu>li").removeClass("current");
         var path = '/ajax/get_project_page_content?id=' + $(this).data('id');
 
@@ -400,34 +355,48 @@ $(window).load(function() {
 
 function loadPage(page, param)
 {
-    $.get('/ajax/get_page_content?page=' + page + '&param=' + param, {}, function(data)
+    var path = '/ajax/get_page_content?page=' + page + '&param=' + param;
+    isContacts = (path.indexOf("contacts")==-1)?false:true;
+    $("li.portfolio_item").removeClass("current_item");
+    $("ul#menu>li").removeClass("current");
+    $(this).parent("li").addClass("current");
+    var global_images = 0;
+    if ($(this).attr("id")=="about_btn" || $(this).attr("data-page")=="about_page")
     {
-        $("div#content_inner").html(data);
-        $(".m_navigation").removeClass("in");
-        $("body").removeClass("openNav");
+        $("div.open_nav_btns a#nbgallery").css("display","block");
+        $("div.open_nav_btns a#about_btn").css("display", "none");
+    }
+    else
+    {
+        $("div.open_nav_btns a#nbgallery").css("display","none");
+        $("div.open_nav_btns a#about_btn").css("display", "block");
+    }
 
-        $("div#content_inner").scrollTop(0);
+    global_images = 0;
+    $("div#preloader").fadeIn("fast", function(){
+        $.get(path, {}, function(data){
+            $("div#content_inner").html(data);
 
-        $("div#content_inner img").css('opacity', 0);
+            if ($("div#content_inner img").length) {
+                $("div#content_inner img").one('load', function () {
+                    global_images++;
+                    if (global_images >= $("div#content_inner img").length) {
+                        initContentResize();
 
-        if (typeof extraLoaded == 'function')
-        {
-            extraLoaded();
-        }
-        $("div#content_inner img").imagesLoaded(function(){});
+                        if (isContacts) {
+                        }
+                        $("div#preloader").fadeOut();
+                    }
 
-        var imgs = $("div#content_inner").find('img');
+                }).each(function () {
+                    if (this.complete) $(this).load();
 
-        imgs.css('opacity', 0).load(function()
-        {
-            $(this).animate({'opacity': 1}, 1000);
-        })
-            .each(function()
-            {
-                if(this.complete) $(this).load();
-            });
+                });
+            } else {
+                $("div#preloader").fadeOut();
+            }
+        });
     });
-
     return false;
 }
 

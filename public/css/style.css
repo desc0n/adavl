@@ -564,7 +564,7 @@ header h1{}
   left: 0;
   top: 0;
   position: absolute;
-  z-index: 88;
+  z-index: 2000;
   opacity: 0;
   background-color: #fff;
 }
@@ -1269,13 +1269,15 @@ footer .social a:hover img{
   float:left;
   width:auto;
 }
-.langWay li .mediaHolder {
+.langWay li .mediaHolder,
+.content_item_inner2 a .mediaHolder {
   position:relative;
   display:block;
   cursor:pointer;
   overflow:hidden;
 }
-.langWay li .mediaHolder:after {
+.langWay li .mediaHolder:after,
+.content_item_inner2 a .mediaHolder:after {
   content:"";
   position:absolute;
   top:0; left:0;
@@ -1288,16 +1290,20 @@ footer .social a:hover img{
   -o-transition: all 0.7s ease-out;
   transition: all 0.7s ease-out;
 }
-.langWay li .mediaHolder:hover:after {
+.langWay li .mediaHolder:hover:after,
+.content_item_inner2 a .mediaHolder:hover:after {
   opacity:0 !important;
 }
 
 @media (max-width: 1049px) {
-  .langWay li .mediaHolder>img {
+  .langWay li .mediaHolder>img,
+  .content_item_inner2 a .mediaHolder>img {
     opacity:0.5 !important;
   }
   .langWay li .mediaHolder>img:hover,
-  .langWay li .mediaHolder.active>img{
+  .langWay li .mediaHolder.active>img,
+  .content_item_inner2 a .mediaHolder>img:hover,
+  .content_item_inner2 a .mediaHolder.active>img {
     opacity:1 !important;
   }
 }
@@ -1309,7 +1315,8 @@ footer .social a:hover img{
   }
 }
 
-.langWay li .mediaHolder>img {
+.langWay li .mediaHolder>img,
+.content_item_inner2 a .mediaHolder>img {
   margin-left:-1px;
   margin-right:-1px;
   -webkit-filter: grayscale(100%);
@@ -1324,7 +1331,9 @@ footer .social a:hover img{
   transition: all 0.5s ease;
 }
 .langWay li .mediaHolder:hover>img,
-.langWay li .mediaHolder.active>img{
+.langWay li .mediaHolder.active>img,
+.content_item_inner2 a .mediaHolder:hover>img,
+.content_item_inner2 a .mediaHolder.active>img {
   -webkit-filter: grayscale(0%);
   -moz-filter: grayscale(0%);
   -ms-filter: grayscale(0%);
@@ -1332,7 +1341,8 @@ footer .social a:hover img{
   filter: grayscale(0%);
   filter: none;
 }
-.langWay li .mediaHolder:hover>img{
+.langWay li .mediaHolder:hover>img,
+.content_item_inner2 a .mediaHolder:hover>img {
   -moz-transform: scale(1.023);
   -webkit-transform: scale(1.02);
   -o-transform: scale(1.02);
@@ -1340,7 +1350,8 @@ footer .social a:hover img{
   transform: scale(1.023);
 }
 
-.langWay li .mediaHolder .mediaCaption {
+.langWay li .mediaHolder .mediaCaption,
+.content_item_inner2 a .mediaHolder .mediaCaption {
   opacity:0.75;
   display:block;
   position:absolute;
@@ -1359,12 +1370,14 @@ footer .social a:hover img{
   -o-transition: all 0.22s ease-out;
   transition: all 0.22s ease-out;
 }
-.langWay li .mediaHolder:hover .mediaCaption {
+.langWay li .mediaHolder:hover .mediaCaption,
+.content_item_inner2 a .mediaHolder .mediaCaption{
   opacity:0.95;
   bottom:0;
 }
 
-.langWay li .mediaHolder .mediaCaption span {
+.langWay li .mediaHolder .mediaCaption span,
+.content_item_inner2 a .mediaHolder .mediaCaption span {
   display:block;
   position:relative;
   top:20px;
@@ -1447,4 +1460,11 @@ footer .social a:hover img{
 }
 .flex-menu li a:hover{
   color: #ea8c13;
+}
+.project-item{
+  padding: 0!important;
+  margin: 0!important;
+}
+.project-item .mediaCaption span{
+  top: 0!important;
 }
