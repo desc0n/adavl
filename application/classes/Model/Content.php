@@ -22,6 +22,9 @@ class Model_Content extends Kohana_Model
 
         return View::factory('template')
             ->set('portfolioCategories', $portfolioModel->getCategories())
+            ->set('googlePlusNetwork', $this->getSocialNetworks('google+'))
+            ->set('twitterNetwork', $this->getSocialNetworks('twitter'))
+            ->set('facebookNetwork', $this->getSocialNetworks('facebook'))
         ;
     }
     
@@ -244,8 +247,6 @@ class Model_Content extends Kohana_Model
         ;
     }
 
-
-
     /**
      * @param array $files
      * @param int $id
@@ -263,4 +264,39 @@ class Model_Content extends Kohana_Model
             ;
         }
     }
+
+    /**
+     * @param null|array $type
+     * @return array
+     */
+    public function getSocialNetworks($type = null)
+    {
+        $query = DB::select()
+            ->from('content__social_networks')
+            ->where('', '', 1)
+        ;
+
+        $query = $type !== null ? $query->and_where('type', '=', $type) : $query;
+        $query = $type !== null ? $query->limit(1) : $query;
+
+        return $query = $type !== null ? $query->execute()->current() : $query->execute()->as_array();
+    }
+
+    /**
+     * @param array $params
+     */
+    public function updateSocialNetworks($params)
+    {
+        $ids = Arr::get($params, 'ids', []);
+        $values = Arr::get($params, 'values', []);
+
+        foreach ($ids as $key => $id) {
+            DB::update('content__social_networks')
+                ->set(['value' => $values[$key]])
+                ->where('id', '=', $id)
+                ->execute()
+            ;
+        }
+    }
+
 }

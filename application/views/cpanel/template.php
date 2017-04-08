@@ -60,6 +60,9 @@
                     <li>
                         <a href="/cpanel/services"><i class="fa fa-cogs fa-fw"></i> Редактировать услуги</a>
                     </li>
+                    <li>
+                        <a href="/cpanel/social_networks"><i class="fa fa-share-alt fa-fw"></i> Редактировать соцсети</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

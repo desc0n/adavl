@@ -290,4 +290,22 @@ class Controller_Cpanel extends Controller
         ;
         $this->response->body($template);
     }
+
+    public function action_social_networks()
+    {
+        /** @var $contentModel Model_Content */
+        $contentModel = Model::factory('Content');
+
+        $template = $this->getBaseTemplate();
+
+        if (!empty($this->request->post('updateNetworks'))) {
+            $contentModel->updateSocialNetworks($this->request->post());
+            HTTP::redirect($this->request->referrer());
+        }
+
+        $template->content = View::factory('cpanel/social_networks')
+            ->set('networks', $contentModel->getSocialNetworks())
+        ;
+        $this->response->body($template);
+    }
 }

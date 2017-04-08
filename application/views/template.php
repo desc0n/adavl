@@ -100,11 +100,9 @@
     <div class="p_abs nav_bottom">
         <!-- Social block -->
         <div class="wrapper social_icons">
-            <a href="https://plus.google.com" class="soc_icon" id="gshare"><img src="/public/images/soc1.jpg" alt=""></a>
-            <a href="http://twitter.com" class="soc_icon" id="tshare"><img src="/public/images/soc2.jpg" alt=""></a>
-            <a href="http://www.facebook.com" class="soc_icon" id="fbshare"><img src="/public/images/soc3.jpg" alt=""></a>
-            <a href="http://www.linkedin.com" class="soc_icon" id="linshare"><img src="/public/images/soc4.jpg" alt=""></a>
-
+            <a href="<?=Arr::get($googlePlusNetwork, 'value', '#');?>" class="soc_icon" id="gshare"><img src="/public/images/soc1.jpg" alt=""></a>
+            <a href="<?=Arr::get($twitterNetwork, 'value', '#');?>" class="soc_icon" id="tshare"><img src="/public/images/soc2.jpg" alt=""></a>
+            <a href="<?=Arr::get($facebookNetwork, 'value', '#');?>" class="soc_icon" id="fbshare"><img src="/public/images/soc3.jpg" alt=""></a>
         </div>
         <!-- End of social block -->
         <div class="created_by">
