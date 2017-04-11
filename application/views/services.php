@@ -23,7 +23,7 @@
         <div class="p_abs content_img">
             <figure>
                 <?if (is_file('public/img/services/' . $service['id'] . '.jpg')) {?>
-                <img src="/public/img/services/<?=$service['id'];?>.jpg" alt="">
+                <img src="/public/img/services/<?=$service['id'];?>.jpg?v=<?=time();?>" alt="">
                 <?}?>
             </figure>
         </div>

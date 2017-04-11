@@ -9,7 +9,7 @@
         <div class="col-lg-3">
             <a class="thumbnail" data-toggle="modal" href="#loadImgModal">
                 <?if (is_file('public/img/services/' . Arr::get($serviceData, 'id') . '.jpg')) {?>
-                    <img src="/public/img/services/<?=Arr::get($serviceData, 'id');?>.jpg" alt="">
+                    <img src="/public/img/services/<?=Arr::get($serviceData, 'id');?>.jpg?v=<?=time();?>" alt="">
                 <?} else {?>
                     <img data-src="holder.js/100%x190" alt="">
                 <?}?>
