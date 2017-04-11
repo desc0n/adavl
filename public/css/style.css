@@ -1468,3 +1468,6 @@ footer .social a:hover img{
 .project-item .mediaCaption span{
   top: 0!important;
 }
+#carousel{
+  max-width: 1200px;
+}
