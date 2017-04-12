@@ -40,6 +40,10 @@ class Model_Content extends Kohana_Model
         $view = View::factory('template');
 
         switch ($page) {
+            case 'main' :
+                $view =  View::factory('main_escape')
+                    ->set('projectList', array_chunk($portfolioModel->findAll(), 2));
+                break;
             case 'contacts' :
                 $view =  View::factory('contacts_escape');
                 break;
