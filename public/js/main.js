@@ -327,8 +327,6 @@ $(window).load(function() {
         return false;
     });
 
-    loadPage('main', null);
-
     $("a#nbgallery").click(function(){
         path = $(this).attr("href");
         $.get(path, {}, function(data){
@@ -399,5 +397,3 @@ function loadPage(page, param)
     });
     return false;
 }
-
-

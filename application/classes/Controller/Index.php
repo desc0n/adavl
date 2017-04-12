@@ -10,7 +10,7 @@ class Controller_Index extends Controller
         View::set_global('title', 'Главная');
         View::set_global('rootPage', 'main');
 
-		$template = $contentModel->getBaseTemplate();
+		$template = $contentModel->getBaseTemplate($this->request->query('_escaped_fragment_'));
         
 		$this->response->body($template);
 	}

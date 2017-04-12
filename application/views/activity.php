@@ -17,5 +17,4 @@ $contentModel = Model::factory('Content');
     <article class="content_item">
         <img class="contactImage" src="/public/images/activity_img.jpg"/>
     </article>
-
 </div>

@@ -25,22 +25,24 @@
     <script src="/public/js/jquery.preloader.js"></script>
     <script src="/public/js/main.js?v=5"></script>
     <script src="/public/js/extra.js"></script>
- </head>
+</head>
+<?php
+/** @var Model_Content $contentModel */
+$contentModel = Model::factory('Content');
+?>
 <body id="home_page">
-
 <div class="spinner">
     <div class="p_abs spinner_logo">
-<!--        <img class="spinner_img1" src="/public/images/spinner_logo1.png" alt="">-->
-<!--        <img class="spinner_img2" src="/public/images/spinner_logo2.png" alt="">-->
     </div>
     <div class="timeline"></div>
 </div>
 
 <div class="global_wrap">
     <div class="open_nav_btns">
-        <a href="#" data-page="contacts">Контакты</a>
-        <a href="#" data-page="main">Портфолио</a>
+        <a href="#">Контакты</a>
+        <a href="#">Портфолио</a>
     </div>
+
     <nav class="m_navigation">
         <div class="nav_inner">
             <div class="wrapper reg nav_top">
@@ -48,10 +50,10 @@
                 <div class="f_left logo"><a id="main-logo-id" href="/">ADAVL</a></div>
             </div>
             <ul class="reg menu" id="menu">
-                <li class="menu_item portfolio-menu-item"><a href="#" data-page="main">Портфолио</a></li>
-                <li class="menu_item"><a href="#!services" data-page="services">Услуги</a></li>
-                <li class="menu_item"><a href="#!activity" data-page="activity">Наша деятельность</a></li>
-                <li class="menu_item"><a href="#!contacts" data-page="contacts">Контакты</a></li>
+                <li class="menu_item portfolio-menu-item"><a href="#" >Портфолио</a></li>
+                <li class="menu_item"><a href="#">Услуги</a></li>
+                <li class="menu_item"><a href="#">Наша деятельность</a></li>
+                <li class="menu_item"><a href="#">Контакты</a></li>
             </ul>
         </div>
     </nav>
@@ -60,7 +62,7 @@
         <div class="nav_inner">
             <ul class="flex-menu" id="portfolioMenu">
                 <?foreach ($portfolioCategories as $id => $name) {?>
-                <li><a href="#" data-page="portfolio_category" data-param="<?=$id;?>"><?=$name;?></a></li>
+                    <li><a href="#"><?=$name;?></a></li>
                 <?}?>
             </ul>
         </div>
@@ -92,7 +94,22 @@
             </div>
         </div>
         <div id="content_inner">
-
+            <div id="carousel" class="owl-carousel lt_gray" data-cycle-fx=carousel data-cycle-swipe=true data-cycle-timeout=0 data-cycle-carousel-visible=2 data-cycle-carousel-fluid=true>
+                <div class="cycle-next"></div>
+                <article class="content_item">
+                    <div class="content_item_inner2">
+                        <h1 class="title1 ind1 lt_gray">
+                            <?=Arr::get($pageData, 'title', '');?>
+                        </h1>
+                        <div>
+                            <?=Arr::get($pageData, 'content', '');?>
+                        </div>
+                    </div>
+                </article>
+                <article class="content_item">
+                    <img class="contactImage" src="/public/images/activity_img.jpg"/>
+                </article>
+            </div>
         </div>
     </section>
     <div class="p_abs nav_bottom">
@@ -104,14 +121,8 @@
         </div>
         <!-- End of social block -->
         <div class="created_by">
-
         </div>
     </div>
 </div>
-<script>
-    $(window).load(function () {
-        loadPage('main', null);
-    });
-</script>
 </body>
 </html>

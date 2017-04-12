@@ -15,8 +15,12 @@ class Model_Content extends Kohana_Model
         return $this->contactTypes;
     }
 
-    public function getBaseTemplate()
+    public function getBaseTemplate($escapeFragment)
     {
+        if (!empty($escapeFragment)) {
+            return $this->getEscapeFragmentTemplate($escapeFragment);
+        }
+
         /** @var $portfolioModel Model_Portfolio */
         $portfolioModel = Model::factory('Portfolio');
 
@@ -26,6 +30,40 @@ class Model_Content extends Kohana_Model
             ->set('twitterNetwork', $this->getSocialNetworks('twitter'))
             ->set('facebookNetwork', $this->getSocialNetworks('facebook'))
         ;
+    }
+
+    public function getEscapeFragmentTemplate($page)
+    {
+        /** @var $portfolioModel Model_Portfolio */
+        $portfolioModel = Model::factory('Portfolio');
+
+        $view = View::factory('template');
+
+        switch ($page) {
+            case 'contacts' :
+                $view =  View::factory('contacts_escape');
+                break;
+            case 'services' :
+                $view =  View::factory('services_escape')
+                    ->set('servicesList', $this->findAllServices());
+                break;
+            case 'activity' :
+                $view =  View::factory('activity_escape')
+                    ->set('pageData', $this->findPageBySlug('activity'));
+                break;
+            default:
+                if(preg_match('/project/', $page)) {
+                    $projectId = (int)str_replace('project', '', $page);
+                    $view = View::factory('project_escape')
+                        ->set('projectData', $portfolioModel->findById($projectId));
+                }
+        }
+
+        return $view
+            ->set('portfolioCategories', $portfolioModel->getCategories())
+            ->set('googlePlusNetwork', $this->getSocialNetworks('google+'))
+            ->set('twitterNetwork', $this->getSocialNetworks('twitter'))
+            ->set('facebookNetwork', $this->getSocialNetworks('facebook'));
     }
     
     /**
