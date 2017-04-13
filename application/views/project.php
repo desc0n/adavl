@@ -28,7 +28,10 @@ $portfolioModel = Model::factory('Portfolio');
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-97326796-1', 'auto');
-    ga('send', 'pageview');
+    ga('send', 'pageview', {
+        'page': '/?_escaped_fragment_=project',
+        'title': 'Проекты'
+    });
 
 </script>
 <!-- Yandex.Metrika counter -->

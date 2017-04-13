@@ -25,7 +25,10 @@ $contentModel = Model::factory('Content');
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-97326796-1', 'auto');
-    ga('send', 'pageview');
+    ga('send', 'pageview', {
+        'page': '/?_escaped_fragment_=activity',
+        'title': 'Наша деятельность'
+    });
 
 </script>
 <!-- Yandex.Metrika counter -->

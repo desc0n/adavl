@@ -37,7 +37,10 @@
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-97326796-1', 'auto');
-    ga('send', 'pageview');
+    ga('send', 'pageview', {
+        'page': '/?_escaped_fragment_=services',
+        'title': 'Услуги'
+    });
 
 </script>
 <!-- Yandex.Metrika counter -->
