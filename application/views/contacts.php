@@ -91,6 +91,10 @@ $contentModel = Model::factory('Content');
             d.addEventListener("DOMContentLoaded", f, false);
         } else { f(); }
     })(document, window, "yandex_metrika_callbacks");
+    yaCounter44179814.hit('#!contacts', {
+        title: 'Контакты',
+        referer: 'http://adavl.ru/#!main'
+    });
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/44179814" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div></div></noscript>
 <!-- /Yandex.Metrika counter -->

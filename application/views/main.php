@@ -61,6 +61,9 @@ $portfolioModel = Model::factory('Portfolio');
             d.addEventListener("DOMContentLoaded", f, false);
         } else { f(); }
     })(document, window, "yandex_metrika_callbacks");
+    yaCounter44179814.hit('#!main', {
+        title: 'Главная'
+    });
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/44179814" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div></div></noscript>
 <!-- /Yandex.Metrika counter -->
