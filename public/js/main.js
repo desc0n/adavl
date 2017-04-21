@@ -201,7 +201,7 @@ $(window).load(function() {
     });
 
 
-    $("ul#menu>li>a, ul#portfolioMenu>li>a").click(function(){
+    $("ul#menu>li>a, ul#portfolioMenu>li>a, div.open_nav_btns>a").click(function(){
         $("body").removeClass("openNav");
         $(".m_navigation").removeClass("in");
         var page = $(this).data('page');
@@ -343,10 +343,13 @@ $(window).load(function() {
         if(nameOfPage){
             $("body").attr("id",nameOfPage);
         }
-        if(!$(this).parent('.portfolio-menu-item').length) {
-            $('.sub-menu').animate({left:'-200px'}, 1000);
-        } else {
-            $('.sub-menu').animate({left:'200px'}, 1000);
+
+        if ($(window).width() > 767) {
+            if(!$(this).parent('.portfolio-menu-item').length) {
+                $('.sub-menu').animate({left:'-200px'}, 1000);
+            } else {
+                $('.sub-menu').animate({left:'200px'}, 1000);
+            }
         }
     });
 });

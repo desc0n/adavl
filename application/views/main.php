@@ -8,10 +8,10 @@ $portfolioModel = Model::factory('Portfolio');
         <article class="content_item">
 
                 <?foreach ($projectPair as $item) {?>
-            <div class="content_item_inner2 project-item" style="height: 50%;">
+            <div class="content_item_inner2 project-item">
                 <a class="project-link" href="#!project<?=$item['id'];?>" data-id="<?=$item['id'];?>">
                     <span class="mediaHolder" style="height: 100%;">
-                        <img src="<?=($portfolioModel->findMainItemImg($item['id']) !== null ? $portfolioModel->findMainItemImg($item['id']) : '/public/images/logo.png');?>" alt="" style="opacity: 1; height: 100%;">
+                        <img src="<?=($portfolioModel->findMainItemImg($item['id']) !== null ? $portfolioModel->findMainItemImg($item['id']) : '/public/images/logo.png');?>" alt="" style="opacity: 1;">
                         <span class="mediaCaption">
                             <span><?=$item['title'];?></span>
                         </span>
