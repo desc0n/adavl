@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta charset="utf-8" />
     <link rel="icon" href="/public/images/logo.png" sizes="38x38" type="image/png">
-    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/style.css?v=6" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/style.css?v=7" />
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/responsive.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/others.css" />
     <script src="/public/js/jquery.js"></script>
