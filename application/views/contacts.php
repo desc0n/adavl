@@ -7,7 +7,7 @@ $contentModel = Model::factory('Content');
     <article class="content_item">
         <div class="content_item_inner2">
             <h1 class="title1 ind1 lt_gray">
-                Адрес
+                Контактные данные
             </h1>
             <ul class="address_list">
                 <li class="wrapper">
