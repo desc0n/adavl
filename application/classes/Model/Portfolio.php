@@ -187,20 +187,22 @@ class Model_Portfolio extends Kohana_Model
 
     /**
      * @param int $itemId
+     * @param bool $original
      *
      * @return string
      */
-    public function findMainItemImg($itemId)
+    public function findMainItemImg($itemId, $original = true)
     {
+        $dir = $original ? '/public/img/original/' : '/public/img/thumb/';
         $itemImgs = $this->findImgsByItemId($itemId);
 
         foreach ($itemImgs as $img) {
             if ((bool)$img['main']) {
-                return '/public/img/original/' . $img['src'];
+                return $dir . $img['src'];
             }
         }
 
-        return isset($itemImgs[0]['src']) ? '/public/img/original/' . $itemImgs[0]['src'] : null;
+        return isset($itemImgs[0]['src']) ? $dir . $itemImgs[0]['src'] : null;
     }
 
     /**
